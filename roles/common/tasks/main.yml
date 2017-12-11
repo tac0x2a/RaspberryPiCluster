@@ -1,9 +1,25 @@
+---
 - name: Update '/etc/hosts'
-
+  become: true
   template:
-    src: templates/etc/hosts
+    src: hosts.j2
     dest: /etc/hosts
     owner: root
     group: root
     mode: "u=rw,g=r,o=r" # 0644
+
+
+- name: create groups
   become: true
+  group: name={{ item.name }} state=present
+  with_items: "{{ users }}"
+
+- name: create users
+  become: true
+  user: name={{ item.name }} shell=/bin/bash state=present group={{ item.name }} append=yes groups={{ item.groups }}
+  with_items: "{{ users }}"
+
+- name: change password
+  become: true
+  user: name={{ item.name }} password={{ item.password }}
+  with_items: "{{ users }}"

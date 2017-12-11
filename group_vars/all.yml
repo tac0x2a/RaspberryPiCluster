@@ -1,0 +1,5 @@
+users:
+  - name: hadoop
+    groups: hadoop
+    password: password_hash('hadoop')
+    home: /home/hadoop
