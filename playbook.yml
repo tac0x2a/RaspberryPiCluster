@@ -1,9 +1,0 @@
-# update
-- hosts: all
-  tasks:
-    - name: apt-get install packages
-      apt: name={{ item }} update_cache=yes state=latest
-      with_items:
-        - git
-        - oracle-java8-jdk
-      become: true

@@ -1,0 +1,9 @@
+- name: Update '/etc/hosts'
+
+  template:
+    src: templates/etc/hosts
+    dest: /etc/hosts
+    owner: root
+    group: root
+    mode: "u=rw,g=r,o=r" # 0644
+  become: true

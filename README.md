@@ -36,4 +36,7 @@ $ ssh-copy-id pi@192.168.11.154
 # Ansible play book (on mac)
 ```
 $ ansible-playbook -i inventory/hosts -u pi playbook.yml
+
+$ python -c 'import crypt; print(crypt.crypt("hadoop", "$6$salt$"))'
+$6AkoXP3AiY4w
 ```
