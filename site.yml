@@ -1,2 +1,3 @@
 - import_playbook: common.yml
-#- import_playbook: hadoop.yml
+- import_playbook: hadoop.yml
+# - import_playbook: java.yml

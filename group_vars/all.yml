@@ -3,3 +3,5 @@ users:
     groups: hadoop
     password: password_hash('hadoop')
     home: /home/hadoop
+
+name_node: rp00
