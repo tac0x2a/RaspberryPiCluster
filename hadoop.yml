@@ -3,3 +3,7 @@
 - hosts: all
   roles:
     - hadoop
+
+- hosts: master
+  roles:
+    - hadoop/namenode

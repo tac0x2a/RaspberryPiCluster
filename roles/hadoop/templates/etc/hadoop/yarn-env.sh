@@ -20,7 +20,7 @@ export HADOOP_YARN_USER=${HADOOP_YARN_USER:-yarn}
 export YARN_CONF_DIR="${YARN_CONF_DIR:-$HADOOP_YARN_HOME/conf}"
 
 # some Java parameters
-export JAVA_HOME="jdk-8-oracle-arm32-vfp-hflt"
+export JAVA_HOME="/usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt"
 
 
 if [ "$JAVA_HOME" = "" ]; then

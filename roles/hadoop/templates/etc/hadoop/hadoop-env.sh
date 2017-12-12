@@ -22,7 +22,7 @@
 # remote nodes.
 
 # The java implementation to use.
-export JAVA_HOME="jdk-8-oracle-arm32-vfp-hflt"
+export JAVA_HOME="/usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt"
 
 # The jsvc implementation to use. Jsvc is required to run secure datanodes
 # that bind to privileged ports to provide authentication of data transfer
