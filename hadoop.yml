@@ -7,3 +7,7 @@
 - hosts: master
   roles:
     - hadoop/namenode
+
+- hosts: slave
+  roles:
+    - hadoop/datanode

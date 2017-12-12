@@ -1,0 +1,17 @@
+---
+# DataNode
+- name: directories
+  become: true
+  file: path={{ item }} state=directory owner=hadoop group=hadoop mode=0700
+  with_items:
+    - /var/lib/hadoop/hdfs/datanode
+
+- name: systemd hadoop-datanode
+  become: true
+  template: src={{ item }}.service dest=/etc/systemd/system/{{ item }}.service owner=root group=root mode=0644
+  with_items:
+    hadoop-datanode
+
+- name: service hadoop-datanode
+  become: true
+  service: name=hadoop-datanode enabled=yes state=started

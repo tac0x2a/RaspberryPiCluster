@@ -8,6 +8,14 @@
     group: root
     mode: "u=rw,g=r,o=r" # 0644
 
+- name: Update '/etc/hostname'
+  become: true
+  template:
+    src: hostname.j2
+    dest: /etc/hostname
+    owner: root
+    group: root
+    mode: "u=rw,g=r,o=r" # 0644
 
 - name: create groups
   become: true
