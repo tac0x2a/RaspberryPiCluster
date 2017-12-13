@@ -4,9 +4,9 @@
 ff02::1         ip6-allnodes
 ff02::2         ip6-allrouters
 
-127.0.1.1       {{inventory_hostname_short}}
-
 {% for item in play_hosts %}
 {% set short_name = item.split('.') %}
 {{ hostvars[item]['ansible_default_ipv4']['address'] }}  {{ item }} {{ short_name[0] }}
 {% endfor %}
+
+# 127.0.1.1       {{inventory_hostname_short}}
