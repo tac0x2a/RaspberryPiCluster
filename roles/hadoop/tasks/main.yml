@@ -6,12 +6,11 @@
 #     - /usr/src/hadoop
 #     - /usr/src/hadoop-2.9.0
 #     - /var/lib/hadoop
-#     - /tmp/hadoop
-#     - /tmp/hadoop-2.9.0.tar.gz
+#     - /usr/src/hadoop-2.9.0.tar.gz
 
 # Hadoop  base setup
 - name: check hadoop.tgz
-  stat: path=/tmp/hadoop-2.9.0.tar.gz
+  stat: path=/usr/src/hadoop-2.9.0.tar.gz
   register: hadoop_tgz
 
 - name: check hadoop
@@ -19,14 +18,15 @@
   register: hadoop_home
 
 - name: download Hadoop
+  become: true
   get_url:
     url:  http://ftp.jaist.ac.jp/pub/apache/hadoop/common/hadoop-2.9.0/hadoop-2.9.0.tar.gz
-    dest: /tmp/hadoop-2.9.0.tar.gz
+    dest: /usr/src/hadoop-2.9.0.tar.gz
   when: not hadoop_tgz.stat.exists
 
 - name: extract Hadoop
   become: true
-  command: tar zxvf /tmp/hadoop-2.9.0.tar.gz -C /usr/src
+  command: tar zxvf /usr/src/hadoop-2.9.0.tar.gz -C /usr/src
   when: not hadoop_home.stat.exists
 
 - name: directories

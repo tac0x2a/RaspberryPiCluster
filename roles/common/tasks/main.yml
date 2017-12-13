@@ -1,4 +1,11 @@
 ---
+- name: apt-get install oracle-java8-jdk, git
+  become: true
+  apt: name={{item}} state=present update_cache=yes
+  with_items:
+      - oracle-java8-jdk
+      - git
+
 - name: Update '/etc/hosts'
   become: true
   template:
