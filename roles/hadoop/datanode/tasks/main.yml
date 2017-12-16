@@ -1,5 +1,19 @@
 ---
 # DataNode
+
+# - name: stop service hadoop-datanode
+#   become: true
+#   service: name=hadoop-datanode enabled=no state=stopped
+#   tags: clean
+#
+# - name: clean up Hadoop datanode
+#   become: true
+#   file: path={{ item }} state=absent
+#   with_items:
+#     - /var/lib/hadoop
+#     - /etc/systemd/system/hadoop-datanode.service
+#   tags: clean
+
 - name: directories
   become: true
   file: path={{ item }} state=directory owner=hadoop group=hadoop mode=0700

@@ -7,10 +7,10 @@ Requires=network-online.target
 User=hadoop
 Group=hadoop
 
-WorkingDirectory=/usr/src/hadoop-2.9.0
+WorkingDirectory=/usr/src/hadoop-3.0.0
 
 Type = simple
-ExecStart = /usr/src/hadoop-2.9.0/bin/hdfs namenode
+ExecStart = /usr/src/hadoop-3.0.0/bin/hdfs namenode
 Restart = always
 TimeoutStartSec=2min
 

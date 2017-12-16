@@ -37,3 +37,6 @@ $ ssh-copy-id pi@192.168.11.154
 ```
 $ ansible-playbook -i inventory/hosts -u pi site.yml
 ```
+
+# Namenode(192.168.11.150)
+Access to http://192.168.11.150:9870/
