@@ -4,4 +4,4 @@ users:
     password: password_hash('hadoop')
     home: /home/hadoop
 
-name_node: rp00
+name_node: rp00.tac42.net
