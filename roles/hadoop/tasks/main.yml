@@ -11,6 +11,15 @@
 #     - /usr/src/hadoop-3.0.0.tar.gz
 #   tags: clean
 
+# - name: "remove HADOOP_HOME"
+#   become: true
+#   lineinfile:
+#     dest='/etc/environment'
+#     state=absent
+#     backrefs=yes
+#     regexp='^HADOOP_HOME=.*'
+#   tags: clean
+
 - name: check hadoop.tgz
   stat: path=/usr/src/hadoop-3.0.0.tar.gz
   register: hadoop_tgz
@@ -30,6 +39,14 @@
   become: true
   command: tar zxvf /usr/src/hadoop-3.0.0.tar.gz -C /usr/src
   when: not hadoop_home.stat.exists
+
+- name: "add HADOOP_HOME to envinroment"
+  become: true
+  lineinfile:
+    dest='/etc/environment'
+    state=present
+    line='HADOOP_HOME=/usr/src/hadoop-3.0.0'
+  when: hadoop_home.stat.exists
 
 - name: directories
   become: true
