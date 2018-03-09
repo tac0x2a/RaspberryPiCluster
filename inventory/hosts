@@ -1,8 +1,8 @@
 [master]
-rp00 ansible_host=192.168.11.150
+rp00.tac42.net ansible_host=192.168.11.150
 
 [slave]
-rp01 ansible_host=192.168.11.151
-rp02 ansible_host=192.168.11.152
-rp03 ansible_host=192.168.11.153
-rp04 ansible_host=192.168.11.154
+rp01.tac42.net ansible_host=192.168.11.151
+rp02.tac42.net ansible_host=192.168.11.152
+rp03.tac42.net ansible_host=192.168.11.153
+rp04.tac42.net ansible_host=192.168.11.154
