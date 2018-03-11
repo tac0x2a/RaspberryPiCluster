@@ -14,7 +14,6 @@
 #     - /etc/systemd/system/hadoop-namenode.service
 #   tags: clean
 
-
 - name: directories
   become: true
   file: path={{ item }} state=directory owner=hadoop group=hadoop mode=0700
@@ -36,6 +35,7 @@
   template: src={{ item }}.service dest=/etc/systemd/system/{{ item }}.service owner=root group=root mode=0644
   with_items:
     hadoop-namenode
+    yarn
 
 - name: service hadoop-namenode
   become: true
