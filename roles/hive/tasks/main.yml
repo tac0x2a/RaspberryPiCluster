@@ -59,3 +59,11 @@
     - -chmod g+w /tmp
     - -chmod g+w /user/hive/warehouse
   when: hive_hdfs.rc != 0
+
+- name: check hive
+  stat: path=/home/pi/metastore_db
+  register: derby_home
+
+- name: make Hive init schema "derby"
+  shell: sh -lc 'schematool -dbType "derby" -initSchema'
+  when: not derby_home.stat.exists
