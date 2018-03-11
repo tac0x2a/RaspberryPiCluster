@@ -1,10 +1,11 @@
 ---
-- name: apt-get install oracle-java8-jdk, git
+- name: apt-get install oracle-java8-jdk, git, sshpass
   become: true
   apt: name={{item}} state=present update_cache=yes
   with_items:
       - oracle-java8-jdk
       - git
+      - sshpass
 
 - name: Update '/etc/hosts'
   become: true
@@ -38,3 +39,20 @@
   become: true
   user: name={{ item.name }} password={{ item.password }}
   with_items: "{{ users }}"
+
+- name: check ssh-key
+  stat: path=/home/pi/.ssh/id_rsa
+  register: ssh_key
+
+- name: create ssh-key
+  shell: sh -lc "ssh-keygen -f .ssh/id_rsa -t rsa -N ''"
+  when: not ssh_key.stat.exists
+
+- name: check generated-ssh-key
+  stat: path=/home/pi/.ssh/id_rsa
+  register: ssh_key
+
+- name: copy ssh-key to each node
+  shell: sh -lc "sshpass -p 'raspberry' ssh-copy-id -i ~/.ssh/id_rsa.pub -o 'StrictHostKeyChecking no' {{ item }}"
+  with_items: "{{ ansible_play_hosts }}"
+  when: ssh_key.stat.exists
