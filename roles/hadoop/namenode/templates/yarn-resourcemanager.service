@@ -8,8 +8,8 @@ User=hadoop
 Group=hadoop
 
 WorkingDirectory=/home/hadoop
-ExecStart = /usr/src/hadoop-3.0.0/sbin/start-yarn.sh
-ExecStop  = /usr/src/hadoop-3.0.0/sbin/stop-yarn.sh
+ExecStart = /usr/src/hadoop-3.0.0/bin/yarn --daemon start resourcemanager
+ExecStop  = /usr/src/hadoop-3.0.0/bin/yarn --daemon stop  resourcemanager
 
 Type = simple
 RemainAfterExit=yes

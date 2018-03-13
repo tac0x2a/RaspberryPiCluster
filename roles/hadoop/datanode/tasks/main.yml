@@ -20,12 +20,16 @@
   with_items:
     - /var/lib/hadoop/hdfs/datanode
 
-- name: systemd hadoop-datanode
+- name: register systemd services
   become: true
   template: src={{ item }}.service dest=/etc/systemd/system/{{ item }}.service owner=root group=root mode=0644
   with_items:
-    hadoop-datanode
+    - hdfs-datanode
+    - yarn-nodemanager
 
-- name: service hadoop-datanode
+- name: start systemd services
   become: true
-  service: name=hadoop-datanode enabled=yes state=started
+  service: name={{ item }} enabled=yes state=started
+  with_items:
+    - hdfs-datanode
+    - yarn-nodemanager

@@ -1,5 +1,5 @@
 [Unit]
-Description=Hadoop DFS namenode
+Description=Hadoop DFS datanode
 After=syslog.target network.target remote-fs.target nss-lookup.target network-online.target
 Requires=network-online.target
 
@@ -8,8 +8,8 @@ User=hadoop
 Group=hadoop
 
 WorkingDirectory=/home/hadoop
-ExecStart = /usr/src/hadoop-3.0.0/sbin/start-dfs.sh
-ExecStop  = /usr/src/hadoop-3.0.0/sbin/stop-dfs.sh
+ExecStart = /usr/src/hadoop-3.0.0/bin/hdfs --daemon start datanode
+ExecStop  = /usr/src/hadoop-3.0.0/bin/hdfs --daemon stop  datanode
 
 Type = simple
 RemainAfterExit=yes

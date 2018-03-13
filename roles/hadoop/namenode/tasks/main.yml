@@ -34,12 +34,12 @@
   become: true
   template: src={{ item }}.service dest=/etc/systemd/system/{{ item }}.service owner=root group=root mode=0644
   with_items:
-    - dfs-namenode
-    - yarn-namenode
+    - hdfs-namenode
+    - yarn-resourcemanager
 
 - name: start systemd services
   become: true
   service: name={{item}} enabled=yes state=started
   with_items:
-    - dfs-namenode
-    - yarn-namenode
+    - hdfs-namenode
+    - yarn-resourcemanager
