@@ -6,6 +6,7 @@
       - oracle-java8-jdk
       - git
       - sshpass
+      - prelink
 
 - name: Update '/etc/hosts'
   become: true
