@@ -1,7 +1,7 @@
 users:
   - name: hadoop
     groups: hadoop
-    password: password_hash('hadoop')
+    password: "{{ 'hadoop' | password_hash('sha512') }}"
     home: /home/hadoop
 
 name_node: rp00.tac42.net
