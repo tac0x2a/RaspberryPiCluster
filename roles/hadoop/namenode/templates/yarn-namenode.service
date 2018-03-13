@@ -1,5 +1,5 @@
 [Unit]
-Description=Hadoop DFS namenode
+Description=Hadoop YARN resource manager and job scheduling/monitoring
 After=syslog.target network.target remote-fs.target nss-lookup.target network-online.target
 Requires=network-online.target
 
@@ -7,14 +7,14 @@ Requires=network-online.target
 User=hadoop
 Group=hadoop
 
-WorkingDirectory=/usr/src/hadoop-3.0.0
+WorkingDirectory=/home/hadoop
+ExecStart = /usr/src/hadoop-3.0.0/sbin/start-yarn.sh
+ExecStop  = /usr/src/hadoop-3.0.0/sbin/stop-yarn.sh
 
 Type = simple
-ExecStart = /usr/src/hadoop-3.0.0/bin/hdfs namenode
+RemainAfterExit=yes
 Restart = always
 TimeoutStartSec=2min
-
-PIDFile=/tmp/hadoop-hadoop-namenode.pid
 
 [Install]
 WantedBy=multi-user.target

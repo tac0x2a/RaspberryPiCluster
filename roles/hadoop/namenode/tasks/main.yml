@@ -30,13 +30,16 @@
   shell: sudo -u hadoop /usr/src/hadoop-3.0.0/bin/hadoop namenode -format
   when: not hdfs_namenode.stat.exists
 
-- name: systemd hadoop-namenode
+- name: register systemd services
   become: true
   template: src={{ item }}.service dest=/etc/systemd/system/{{ item }}.service owner=root group=root mode=0644
   with_items:
-    hadoop-namenode
-    yarn
+    - dfs-namenode
+    - yarn-namenode
 
-- name: service hadoop-namenode
+- name: start systemd services
   become: true
-  service: name=hadoop-namenode enabled=yes state=started
+  service: name={{item}} enabled=yes state=started
+  with_items:
+    - dfs-namenode
+    - yarn-namenode
