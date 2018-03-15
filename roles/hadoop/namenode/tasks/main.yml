@@ -1,12 +1,12 @@
 ---
 # namenode
 
-# - name: stop systemd services on namenode
-#   become: true
-#   service: name={{item}} enabled=yes state=stopped
-#   with_items:
-#     - hdfs-namenode
-#     - yarn-resourcemanager
+- name: stop systemd services on namenode
+  become: true
+  service: name={{item}} enabled=yes state=stopped
+  with_items:
+    - hdfs-namenode
+    - yarn-resourcemanager
 #
 # - name: clean up Hadoop namenode
 #   become: true

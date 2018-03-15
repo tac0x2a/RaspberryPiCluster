@@ -1,12 +1,12 @@
 ---
 # DataNode
 
-# - name: stop systemd services on datanode
-#   become: true
-#   service: name={{ item }} enabled=no state=stopped
-#   with_items:
-#     - hdfs-datanode
-#     - yarn-nodemanager
+- name: stop systemd services on datanode
+  become: true
+  service: name={{ item }} enabled=no state=stopped
+  with_items:
+    - hdfs-datanode
+    - yarn-nodemanager
 #
 # - name: clean up Hadoop datanode
 #   become: true
