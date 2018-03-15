@@ -56,8 +56,8 @@
   with_items:
     - -mkdir -p /tmp
     - -mkdir -p /user/hive/warehouse
-    - -chmod g+w /tmp
-    - -chmod g+w /user/hive/warehouse
+    - -chmod g+rw /tmp
+    - -chmod g+rw /user/hive/warehouse
   when: hive_hdfs.rc != 0
 
 - name: check hive
