@@ -1,0 +1,9 @@
+---
+
+- hosts: all
+  tasks:
+    - name: reboot
+      become: true
+      command: reboot
+      with_items:
+        - "{{ ansible_play_hosts }}"
