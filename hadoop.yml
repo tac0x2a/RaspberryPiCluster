@@ -4,10 +4,10 @@
   roles:
     - hadoop
 
-- hosts: master
-  roles:
-    - hadoop/namenode
-
 - hosts: slave
   roles:
     - hadoop/datanode
+
+- hosts: master
+  roles:
+    - hadoop/namenode
