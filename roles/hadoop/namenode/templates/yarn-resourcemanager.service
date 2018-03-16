@@ -1,0 +1,20 @@
+[Unit]
+Description=Hadoop YARN resource manager and job scheduling/monitoring
+After=syslog.target network.target remote-fs.target nss-lookup.target network-online.target
+Requires=network-online.target
+
+[Service]
+User=hadoop
+Group=hadoop
+
+WorkingDirectory=/home/hadoop
+ExecStart = /usr/src/hadoop-3.0.0/bin/yarn --daemon start resourcemanager
+ExecStop  = /usr/src/hadoop-3.0.0/bin/yarn --daemon stop  resourcemanager
+
+Type = simple
+RemainAfterExit=yes
+Restart = always
+TimeoutStartSec=2min
+
+[Install]
+WantedBy=multi-user.target

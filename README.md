@@ -38,5 +38,40 @@ $ ssh-copy-id pi@192.168.11.154
 $ ansible-playbook -i inventory/hosts -u pi site.yml
 ```
 
-# Namenode(192.168.11.150)
-Access to http://192.168.11.150:9870/
+# Namenode(rp00.tac42.net)
++ HDFS Information http://rp00.tac42.net:9870/
++ Cluster Metrics http://rp00.tac42.net:8088/
+
+# HDFS Tips
+```sh
+$ hadoop fs -mkdir src_json
+$ hadoop fs -put ./local_src_json/*.json src_json/
+$ hadoop job -list all # check running jobs
+```
+
+# Hive Tips
+
+```sh
+$ schematool -dbType derby -initSchema # only first time
+$ beeline -u jdbc:hive2://
+```
+
+```sql
+CREATE TABLE raw_json (line STRING);
+LOAD DATA LOCAL INPATH '<path to local files>' INTO TABLE raw_json;
+
+# Or move filed on hdfs
+# LOAD DATA INPATH '<path to hdfs files>' INTO TABLE iris;
+
+
+SELECT * from raw_json LIMIT 100;
+SELECT COUNT(*) from raw_json;
+```
+
+
+# Trouble Shoot
+
+## Name node is in safe mode.
+```
+$ hadoop dfsadmin -safemode leave
+```

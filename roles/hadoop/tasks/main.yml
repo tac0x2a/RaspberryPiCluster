@@ -9,6 +9,7 @@
 #     - /usr/src/hadoop-3.0.0
 #     - /var/lib/hadoop
 #     - /usr/src/hadoop-3.0.0.tar.gz
+#     - /etc/profile.d/hadoop.sh
 #   tags: clean
 
 - name: check hadoop.tgz
@@ -30,6 +31,15 @@
   become: true
   command: tar zxvf /usr/src/hadoop-3.0.0.tar.gz -C /usr/src
   when: not hadoop_home.stat.exists
+
+- name: update Hadoop lib
+  become: true
+  command: sudo execstack -c /usr/src/hadoop-3.0.0/lib/native/libhadoop.so.1.0.0
+  when: not hadoop_home.stat.exists
+
+- name: add HADOOP_HOME to envinroment
+  become: true
+  template: src=etc/profile.d/hadoop.sh dest=/etc/profile.d/hadoop.sh owner=root group=root mode=0644
 
 - name: directories
   become: true

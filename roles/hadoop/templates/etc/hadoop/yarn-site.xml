@@ -13,15 +13,25 @@
   limitations under the License. See accompanying LICENSE file.
 -->
 <configuration>
+  <property>
+    <name>yarn.nodemanager.aux-services</name>
+    <value>mapreduce_shuffle</value>
+  </property>
+  <property>
+    <name>yarn.nodemanager.env-whitelist</name>
+    <value>JAVA_HOME,HADOOP_COMMON_HOME,HADOOP_HDFS_HOME,HADOOP_CONF_DIR,CLASSPATH_PREPEND_DISTCACHE,HADOOP_YARN_HOME,HADOOP_MAPRED_HOME</value>
+  </property>
 
-<!-- Site specific YARN configuration properties -->
-    <property>
-        <name>yarn.nodemanager.aux-services</name>
-        <value>mapreduce_shuffle</value>
-    </property>
-    <property>
-        <name>yarn.resourcemanager.hostname</name>
-        <value>{{ name_node }}</value>
-    </property>
-
+  <property>
+    <name>yarn.resourcemanager.scheduler.address</name>
+    <value>{{ name_node }}:8030</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.address</name>
+    <value>{{ name_node }}:8032</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.resource-tracker.address</name>
+    <value>{{ name_node }}:8031</value>
+  </property>
 </configuration>

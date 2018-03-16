@@ -1,5 +1,5 @@
 [Unit]
-Description=Hadoop DFS datanode
+Description=Hadoop YARN node manager
 After=syslog.target network.target remote-fs.target nss-lookup.target network-online.target
 Requires=network-online.target
 
@@ -7,14 +7,14 @@ Requires=network-online.target
 User=hadoop
 Group=hadoop
 
-WorkingDirectory=/usr/src/hadoop-3.0.0
+WorkingDirectory=/home/hadoop
+ExecStart = /usr/src/hadoop-3.0.0/bin/yarn --daemon start nodemanager
+ExecStop  = /usr/src/hadoop-3.0.0/bin/yarn --daemon stop  nodemanager
 
 Type = simple
-ExecStart = /usr/src/hadoop-3.0.0/bin/hdfs datanode
+RemainAfterExit=yes
 Restart = always
 TimeoutStartSec=2min
-
-PIDFile=/tmp/hadoop-hadoop-datanode.pid
 
 [Install]
 WantedBy=multi-user.target
