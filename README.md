@@ -52,7 +52,7 @@ $ hadoop job -list all # check running jobs
 # Hive Tips
 
 ```sh
-$ schematool -dbType derby -initSchema
+$ schematool -dbType derby -initSchema # only first time
 $ beeline -u jdbc:hive2://
 ```
 
