@@ -25,10 +25,14 @@
 
 - name: register systemd services
   become: true
-  template: src={{ item }}.service dest=/etc/systemd/system/{{ item }}.service owner=root group=root mode=0644
+  template: src={{ item }}.service dest=/etc/systemd/system/{{ item }}.service owner=root group=root mode=0655
   with_items:
     - hdfs-datanode
     - yarn-nodemanager
+
+- name: reload systemd services
+  become: true
+  command: systemctl daemon-reload
 
 - name: start systemd services
   become: true
