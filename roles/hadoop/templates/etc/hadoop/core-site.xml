@@ -19,7 +19,7 @@
 <configuration>
   <property>
     <name>fs.defaultFS</name>
-    <value>hdfs://rp00.tac42.net:9000</value>
+    <value>hdfs://{{name_node}}:9000</value>
   </property>
   <property>
     <name>hadoop.proxyuser.hadoop.hosts</name>
