@@ -1,4 +1,14 @@
 ---
+
+- name: check timezone
+  command: timedatectl
+  register: timezone
+
+- name: set timezone 'Asia/Tokyo'
+  become: true
+  command: sudo raspi-config nonint do_change_timezone 'Asia/Tokyo' # 'Etc/UTC'
+  when: timezone.stdout.find('Asia/Tokyo') == -1
+
 - name: apt-get install oracle-java8-jdk, git, sshpass
   become: true
   apt: name={{item}} state=present update_cache=yes
