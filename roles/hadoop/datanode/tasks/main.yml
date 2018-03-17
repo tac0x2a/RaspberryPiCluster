@@ -7,6 +7,8 @@
   with_items:
     - hdfs-datanode
     - yarn-nodemanager
+  ignore_errors: True
+
 #
 # - name: clean up Hadoop datanode
 #   become: true
