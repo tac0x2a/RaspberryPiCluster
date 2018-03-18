@@ -1,0 +1,69 @@
+---
+#  tez setup
+
+# - name: clean up Hive basics
+#   become: true
+#   file: path={{ item }} state=absent
+#   with_items:
+#     - /usr/src/hadoop
+#     - /usr/src/hadoop-3.0.0
+#     - /var/lib/hadoop
+#     - /usr/src/hadoop-3.0.0.tar.gz
+#     - /etc/profile.d/hive.sh
+#   tags: clean
+
+# - name: remove Hive directories on HDFS
+#   shell: sh -lc "HADOOP_USER_NAME=hadoop hadoop fs {{ item }}"
+#   with_items:
+#     - -rmdir -p /user/hive
+#   tags: clean
+
+# http://ftp.jaist.ac.jp/pub/apache/tez/0.9.1/apache-tez-0.9.1-bin.tar.gz
+# http://ftp.jaist.ac.jp/pub/apache/tez/0.9.1/
+- name: check tez.tgz
+  stat: path=/usr/src/apache-tez-0.9.1.tar.gz
+  register: tez_tgz
+
+- name: download tez
+  become: true
+  get_url:
+    url: http://ftp.jaist.ac.jp/pub/apache/tez/0.9.1/apache-tez-0.9.1-bin.tar.gz
+    dest: /usr/src/apache-tez-0.9.1.tar.gz
+  when: not tez_tgz.stat.exists
+
+- name: check tez
+  stat: path=/usr/src/apache-tez-0.9.1
+  register: tez_home
+
+- name: extract tez
+  become: true
+  unarchive:
+      src:  /usr/src/apache-tez-0.9.1.tar.gz
+      dest: /usr/src/
+      remote_src: yes
+  when: not tez_home.stat.exists
+
+- name: add TEZ_* to CLASSPATH envinroment
+  become: true
+  template: src=etc/profile.d/tez.sh dest=/etc/profile.d/tez.sh owner=root group=root mode=0644
+
+- name: check Tez lib directories on HDFS
+  shell: sh -lc "HADOOP_USER_NAME=hadoop hadoop fs -test -e /apps/tez-0.9.1/tez.tar.gz"
+  failed_when: no
+  changed_when: yes
+  register: tez_hdfs
+
+- name: copy Tez on HDFS
+  shell: sh -lc "HADOOP_USER_NAME=hadoop hadoop fs {{item}}"
+  failed_when: no
+  changed_when: no
+  with_items:
+    - "-mkdir -p /apps/tez-0.9.1/"
+    - "-copyFromLocal /usr/src/apache-tez-0.9.1/share/tez.tar.gz /apps/tez-0.9.1/"
+  when: tez_hdfs.rc != 0
+
+- name: copy config files
+  become: true
+  template: src={{ item }} dest=/usr/src/apache-tez-0.9.1/{{ item }} owner=root group=root mode=0644
+  with_items:
+    - conf/tez-site.xml
