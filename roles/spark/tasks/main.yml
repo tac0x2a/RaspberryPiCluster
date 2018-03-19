@@ -1,0 +1,38 @@
+---
+#  Spark setup
+
+- name: check spark-hadoop.tgz
+  stat: path=/usr/src/spark-2.3.0-bin-hadoop2.7.tgz
+  register: spark_tgz
+
+- name: check hadoop
+  stat: path=/usr/src/spark-2.3.0-bin-hadoop2.7
+  register: spark_home
+
+- name: download Spark
+  become: true
+  get_url:
+    url: http://ftp.meisei-u.ac.jp/mirror/apache/dist/spark/spark-2.3.0/spark-2.3.0-bin-hadoop2.7.tgz
+    dest: /usr/src/spark-2.3.0-bin-hadoop2.7.tgz
+  when: not spark_tgz.stat.exists
+
+- name: extract Hadoop
+  become: true
+  command: tar zxvf /usr/src/spark-2.3.0-bin-hadoop2.7.tgz -C /usr/src
+  when: not spark_home.stat.exists
+
+- name: check hive
+  stat: path=/usr/src/apache-hive-2.3.2-bin
+  register: hive_home
+
+- name: link jar files for hive
+  become: true
+  file:
+    state: link
+    src: /usr/src/spark-2.3.0-bin-hadoop2.7/jars/{{item}}
+    path: /usr/src/apache-hive-2.3.2-bin/lib/{{item}}
+  with_items:
+    - scala-library-2.11.8.jar
+    - spark-core_2.11-2.3.0.jar
+    - spark-network-common_2.11-2.3.0.jar
+  when: hive_home.stat.exists
