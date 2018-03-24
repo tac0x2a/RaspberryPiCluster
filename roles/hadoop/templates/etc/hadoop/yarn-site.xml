@@ -34,4 +34,10 @@
     <name>yarn.resourcemanager.resource-tracker.address</name>
     <value>{{ name_node }}:8031</value>
   </property>
+
+  <property>
+    <name>yarn.resourcemanager.scheduler.class/name>
+    <value>org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler</value>
+  </property>
+
 </configuration>

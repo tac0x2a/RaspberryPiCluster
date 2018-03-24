@@ -36,3 +36,9 @@
     - spark-core_2.11-2.3.0.jar
     - spark-network-common_2.11-2.3.0.jar
   when: hive_home.stat.exists
+
+- name: copy config files
+  become: true
+  template: src={{ item }} dest=/usr/src/spark-2.3.0-bin-hadoop2.7/{{ item }} owner=root group=root mode=0644
+  with_items:
+    - conf/spark-defaults.conf
